@@ -48,8 +48,8 @@ class SpaGCN(object):
         assert adata.shape[0]==adj.shape[0]==adj.shape[1]
         pca = PCA(n_components=self.num_pcs)
         if issparse(adata.X):
-            pca.fit(adata.X.A)
-            embed=pca.transform(adata.X.A)
+            pca.fit(adata.X.toarray())
+            embed=pca.transform(adata.X.toarray())
         else:
             pca.fit(adata.X)
             embed=pca.transform(adata.X)
@@ -116,8 +116,8 @@ class multiSpaGCN(object):
         self.adata_all=AnnData.concatenate(*adata_list,join='inner',batch_key="dataset_batch",batch_categories=batch_cat)
         pca = PCA(n_components=self.num_pcs)
         if issparse(self.adata_all.X):
-            pca.fit(self.adata_all.X.A)
-            embed=pca.transform(self.adata_all.X.A)
+            pca.fit(self.adata_all.X.toarray())
+            embed=pca.transform(self.adata_all.X.toarray())
         else:
             pca.fit(self.adata_all.X)
             embed=pca.transform(self.adata_all.X)
